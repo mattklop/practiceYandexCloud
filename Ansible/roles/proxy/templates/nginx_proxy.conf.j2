@@ -1,0 +1,14 @@
+upstream backend_servers {
+    server 93.77.182.58:80;
+    server 46.21.247.146:80;
+}
+
+server {
+    listen 3000;
+
+    location / {
+        proxy_pass http://backend_servers;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}

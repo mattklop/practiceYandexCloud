@@ -1,0 +1,22 @@
+---
+- name: Install Nginx for Proxy
+  apt:
+    name: nginx
+    state: present
+
+- name: Remove default Nginx config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Apply Proxy configuration from template
+  template:
+    src: nginx_proxy.conf.j2
+    dest: /etc/nginx/sites-enabled/proxy.conf
+  notify: restart nginx
+
+- name: Ensure Nginx is started
+  service:
+    name: nginx
+    state: started
+    enabled: yes

@@ -1,0 +1,4 @@
+- name: Create index.html with hostname
+  copy:
+    content: "Hello from {{ ansible_hostname }}!"
+    dest: /var/www/html/index.html
